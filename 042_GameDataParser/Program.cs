@@ -1,12 +1,43 @@
-﻿using System.Text.Json;
+﻿using System
 
 Console.WriteLine("Enter the name of the file you want to read");
 var fileName = Console.Readline();
 
+public class Dog
+{
+    [StringLengthValidate(2,10)]
+    public string Name { get; }
 
-   public class Game
+    public Dog(string name) => Name = name;
+}
+
+[AttributeUsage(AttributeTargets.Property)]
+public class StringLengthValidateAttribute : Attribute
+{
+    public Min {get;}
+    public Max {get;}
+
+    public StringLengthValidateAttribute(int min, int max)
     {
-        public string Title { get; set; }
-        public int ReleaseYear { get; set; }
-        public double Rating { get; set; }
+        Min = min;
+        Max = max;
     }
+}
+
+public class Validator
+{
+    public bool Validate (object obj)
+    {
+        var type = obj.GetType();
+        var propertiesToValidate = type
+        .GetProperties()
+        .Where(property => 
+        Attribute.IsDefined(
+            property, typeof(StringLengthValidateAttribute)));
+
+        foreach(var prop in propertiesToValidate)
+        {
+            object? propertyVal
+        }
+    }
+}
